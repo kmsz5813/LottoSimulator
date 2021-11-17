@@ -5,12 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.coroutines.coroutineContext
 import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     val mWinLottoNumArr = ArrayList<Int>()
+
+    var mBounsNum = 0
+
     lateinit var mLottoNumTxtList : ArrayList<TextView>
+
+    val mMyLottoNumArr = arrayListOf(5,14,25,30,38,42)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,13 +35,58 @@ class MainActivity : AppCompatActivity() {
             makeLottoNumbers()
 
 //            보너스번호 생성
+            makeBounsNum()
 
+            checkLottoRank()
+
+
+        }
+
+        fun checkLottoRank() {
+
+            var correctCount = 0
+
+            for(myNum in mMyLottoNumArr){
+
+//                맞췄는가? -> myNum이 당첨번호에 들어있는가?
+                if( mWinLottoNumArr.contains(myNum)){
+//                    맞춘 갯수 증가
+
+                    correctCount++
+                }
+
+            }
+
+            Log.d("맞춘 갯숫", "${coroutineContext}개 맞춤")
 
 
         }
 
 
     }
+    fun makeBounsNum() {
+
+//        써도 되는 숫자가 나올때까지 무한 반복
+        while (true){
+
+            val randomNum = (1..45).random()
+
+            val isDuplOk = !mWinLottoNumArr.contains(randomNum)
+
+            if (isDuplOk){
+                mBounsNum = randomNum
+                break
+
+            }
+
+        }
+
+//        보너스번호 텍스튜베 반영
+        txtBonusNum.text = mBounsNum.toString()
+
+
+    }
+
     fun makeLottoNumbers(){
 
 //        기존에 번호가 있다면 전부 삭제.
@@ -62,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 //                    숫자를 당첨 목록에 추가.
                     mWinLottoNumArr.add(randomNum)
 
-                    break;
+                    break
                 }
 
             }
