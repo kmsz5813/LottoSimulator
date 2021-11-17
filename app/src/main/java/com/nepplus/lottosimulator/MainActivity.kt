@@ -3,12 +3,14 @@ package com.nepplus.lottosimulator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
     val mWinLottoNumArr = ArrayList<Int>()
+    lateinit var mLottoNumTxtList : ArrayList<TextView>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,15 +73,19 @@ class MainActivity : AppCompatActivity() {
         mWinLottoNumArr.sort()
 
 //        당첨 번호 6개 확인
-        for (num in mWinLottoNumArr){
-            Log.d("당첨번호", num.toString())
-        }
+       for (i in 0 until 6) {
+
+//           텍스트뷰[i] = 당첨번호 [i]
+
+           mLottoNumTxtList[i].text = mWinLottoNumArr[i].toString()
+
+       }
 
 
     }
 
     fun setValuse() {
-
+        mLottoNumTxtList =  arrayListOf(txtLottoNum1,txtLottoNum2,txtLottoNum3,txtLottoNum4,txtLottoNum5,txtLottoNum6)
 
     }
 
