@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     val mMyLottoNumArr = arrayListOf(5,14,25,30,38,42)
 
+//    등수별 당첨 횟수 목록
+
+    val mRankCountList = arrayListOf(0, 0, 0, 0, 0, 0)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +85,9 @@ class MainActivity : AppCompatActivity() {
                     Log.d("등수","1등입니다!")
                     mEarnedMoney += 5000000000
 
+                    mRankCountList[0]++
+                    txtRankCount1.text = "${mRankCountList[0]}회"
+
                 }
                 5 -> {
 //                    보너스 번호 검사 => 보너스 번호가 내 번호안에 있는가?
@@ -89,10 +96,15 @@ class MainActivity : AppCompatActivity() {
                         Log.d("등수","2등")
                         mEarnedMoney += 50000000
 
+                        mRankCountList[1]++
+                        txtRankCount2.text = "${mRankCountList[1]}회"
+
                     }
                     else{
                         Log.d("등수","3등")
                         mEarnedMoney += 2000000
+                        mRankCountList[2]++
+                        txtRankCount3.text = "${mRankCountList[2]}회"
                     }
 
 
@@ -100,15 +112,21 @@ class MainActivity : AppCompatActivity() {
                 4 -> {
                     Log.d("등수","4등")
                     mEarnedMoney += 50000
+                    mRankCountList[3]++
+                    txtRankCount4.text = "${mRankCountList[3]}회"
 
                 }
                 3 -> {
                     Log.d("등수","5등")
                     mUsedMoney -= 5000
+                    mRankCountList[4]++
+                    txtRankCount5.text = "${mRankCountList[4]}회"
 
                 }
                 else -> {
                     Log.d("등수","꽝")
+                    mRankCountList[5]++
+                    txtRankCount6.text = "${mRankCountList[5]}회"
                 }
 
             }
