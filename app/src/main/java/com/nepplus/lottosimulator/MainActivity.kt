@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     val mRankCountList = arrayListOf(0, 0, 0, 0, 0, 0)
 
+//    지금 자동 구매 중인가?
+    var isAutoNow = false
+
 //     할일을 관리하는 클래스
     lateinit var mHandler : Handler
 
@@ -45,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun run() {
 //        쓴 돈이 1천만원이 안된다면 -> 다시 로또 구매
 //        아니라면 반복 X
-        if (mUsedMoney <= 1000000){
+        if (mUsedMoney <= 10000000){
             makeLottoNumbers()
             makeBounsNum()
             checkLottoRank()
@@ -78,8 +81,24 @@ class MainActivity : AppCompatActivity() {
 
         btnAutoBuyLotto.setOnClickListener {
 
-//            핸들러에게 할일을 등록
-            mHandler.post(buyLottoRunnable)
+            if(!isAutoNow) {
+                mHandler.post(buyLottoRunnable)
+
+
+                isAutoNow = true
+                btnAutoBuyLotto.text = "자동 구매 중단하기"
+            }
+            else{
+
+
+//                다음 구매 할일 제거
+                mHandler.removeCallbacks(buyLottoRunnable)
+
+                isAutoNow = false
+                btnAutoBuyLotto.text = "자동 구매 재개"
+
+            }
+
 
 
 
