@@ -36,36 +36,33 @@ class MainActivity : AppCompatActivity() {
 
     val mRankCountList = arrayListOf(0, 0, 0, 0, 0, 0)
 
-//    지금 자동 구매 중인가?
+    //    지금 자동 구매 중인가?
     var isAutoNow = false
 
-//     할일을 관리하는 클래스
-    lateinit var mHandler : Handler
+    //     할일을 관리하는 클래스
+    lateinit var mHandler: Handler
 
-//    할일이 뭔지 작성 1) 로또 구매하기
-    val buyLottoRunnable = object : Runnable
-{
-    override fun run() {
+    //    할일이 뭔지 작성 1) 로또 구매하기
+    val buyLottoRunnable = object : Runnable {
+        override fun run() {
 //        쓴 돈이 1천만원이 안된다면 -> 다시 로또 구매
 //        아니라면 반복 X
-        if (mUsedMoney <= 10000000){
-            makeLottoNumbers()
-            makeBounsNum()
-            checkLottoRank()
+            if (mUsedMoney <= 10000000) {
+                makeLottoNumbers()
+                makeBounsNum()
+                checkLottoRank()
 
-            mHandler.post(this)
-        }
-        else{
-            Toast.makeText(this@MainActivity, "자동 구매를 중단합니다", Toast.LENGTH_SHORT).show()
+                mHandler.post(this)
+            } else {
+                Toast.makeText(this@MainActivity, "자동 구매를 중단합니다", Toast.LENGTH_SHORT).show()
 //            할일 추가 등록 X
 
 
+            }
         }
+
+
     }
-
-
-}
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +78,13 @@ class MainActivity : AppCompatActivity() {
 
         btnAutoBuyLotto.setOnClickListener {
 
-            if(!isAutoNow) {
+            if (!isAutoNow) {
                 mHandler.post(buyLottoRunnable)
 
 
                 isAutoNow = true
                 btnAutoBuyLotto.text = "자동 구매 중단하기"
-            }
-            else{
+            } else {
 
 
 //                다음 구매 할일 제거
@@ -98,8 +94,6 @@ class MainActivity : AppCompatActivity() {
                 btnAutoBuyLotto.text = "자동 구매 재개"
 
             }
-
-
 
 
         }
